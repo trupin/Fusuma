@@ -128,12 +128,14 @@ public enum FusumaModeOrder {
         super.viewWillAppear(animated)
 
         UIApplication.sharedApplication().statusBarStyle = .LightContent
+        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
     }
 
     override public func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
 
         UIApplication.sharedApplication().statusBarStyle = .Default
+        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Fade)
     }
 
     override public func viewDidAppear(animated: Bool) {
