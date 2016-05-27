@@ -10,7 +10,7 @@ import UIKit
 
 @objc public protocol FusumaDelegate: class {
 
-    func fusumaImageSelected(image: UIImage)
+    func fusuma(fusuma: FusumaViewController, imageSelected image: UIImage)
 
     func fusumaCameraRollUnauthorized()
 
@@ -183,8 +183,6 @@ public enum FusumaModeOrder {
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
-        delegate?.fusumaImageSelected(image)
-
         self.dismissViewControllerAnimated(true, completion: {
 
             self.delegate?.fusumaDismissedWithImage?(image)
@@ -193,18 +191,17 @@ public enum FusumaModeOrder {
 
     // MARK: FSCameraViewDelegate
     func cameraShotFinished(image: UIImage) {
-
-        delegate?.fusumaImageSelected(image)
-        self.dismissViewControllerAnimated(true, completion: {
-
-            self.delegate?.fusumaDismissedWithImage?(image)
-        })
+        delegate?.fusuma(self, imageSelected: image)
     }
 
     // MARK: FSAlbumViewDelegate
     public func albumViewCameraRollUnauthorized() {
 
         delegate?.fusumaCameraRollUnauthorized()
+    }
+
+    public func restartCamera() {
+        self.cameraView.initialize()
     }
 }
 
